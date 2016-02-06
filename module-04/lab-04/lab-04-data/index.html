@@ -59,8 +59,11 @@
 
     <footer>
         <p>Map authored by Ryan Kelly</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Mercator Projection, Date Created: February 6, 2016</p>
+        <p>Population data courtesy of Wikipedia</p>
+        <p>Coordinate data obtained from Google Earth</p>
+        <p>Cuzco is the ancient power base of the former Incan Empire which once spanned the South American continent from present-day Colombia to what is now northern Argentina.  Cuzco is now the key transportation hub in the Peruvian Andes and a major tourist attraction.</p>
+        <p> Tokyo became the capital of Imperial Japan in 1869 after the Meiji Emperor moved it from Kyoto. The city is now the second largest metropolitan area in the world and is a global center for business, finance and industry.</p>  <p>Tromso is the most populous city located beyond the Arctic Circle and is the gateway to the Lofoten Islands and to the island of Svalbard.
         </p>
     </footer>
 
@@ -69,7 +72,7 @@
         var targetDiv = 'map';
 
         var options = {
-            center: [0, 0],
+            center: [45, 20],
             zoom: 2
         }
         
@@ -80,37 +83,27 @@
         map.addLayer(tiles); 
         
         // START Lab 04 CODE HERE
-        var cities = ["Cuzco", "Kyoto", "Tromso"]; // Add the names of the three cities
         
-        var cityCoords = [
-            [-13.5, -72.0],
-            [35.0, 135.75],
-            [69.65, 18.95]
-        ]; // Building a multiple variable array of three cities
+        var cityCoords = [[-13.53, -71.97], [35.67, 139.67], [69.65, 18.95]]; // Building a two-dimensional array of the three cities lat/long coordinates
        
-        var cityPops = [435114, 1474570, 72066]; // Building the multiple variable array of population of the cities
+        var cityPops = [435114, 13506607, 72066]; // Building the multiple variable array of population of the cities
         
-        var cityCapital = [false, false, false]; // Building the multiple variable array for capital cities
+        var cityCapital = [false, true, false]; // Building the multiple variable array for capital cities
   
-        
+        var cities = ["Cuzco", "Tokyo", "Tromso"]; // Add the names of the three cities to an array
         
         for (var i = 0; i < cities.length; i++) {
-            console.log (cities[i], cityCoords[i], cityPops[i]);
+            console.log (cities[i], cityCoords[i], cityPops[i], cityCapital[i]);
+            var citiesPopup = "<b>"+ cities[i] +"</b><br>"+"<b>Coordinates</b>: "+cityCoords[i] +"</b><br>" +"<b>Population</b>: " +cityPops[i] +"</b><br>";
+                if(cityCapital[i] == true) {
+                           citiesPopup += (cities[i])+ " is a capital city."; 
+                } else {   citiesPopup += (cities[i])+ " is not a capital city.";
+                       }
+            L.marker(cityCoords[i]).addTo(map)
+                .bindPopup(citiesPopup);
         }
-         
-           var citiesPopup = "<b>"+cities+"</b><br>"
-                          +"<b>cityPops</b>: "+cityCapital;
-
-           if(cityCapital == true) {
-                citiesPopup += "<br>Is the capital city."; 
-           } else { citiesPopup += "<br> is not a capital city.";
-          
-        L.marker(cityCoords).addTo(map)
-            .bindPopup(citiesPopup);
-                  }
         
-        
-        // end writing/editing Lab 04 code here
+        // END Lab 04 CODE HERE
         
           
     </script>

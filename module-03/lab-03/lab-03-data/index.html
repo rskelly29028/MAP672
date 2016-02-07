@@ -4,7 +4,7 @@
     
 <head>
     <meta charset=utf-8 />
-    <title>Lab 03 Starter Template</title>
+    <title>Central Kentucky</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -45,7 +45,6 @@
             font-size: 1em;
             color: #001323;
         }
-        /* Additional style rules go here! */
     </style>
 </head>
 
@@ -84,35 +83,41 @@
             ext: 'png'
         });
         map.addLayer(tiles);
-        // BEGIN WRITING CODE FOR LAB 03 HERE
-        var city1Capital = false;
-        var city2Capital = true;
-        var city3Capital = false;
-        var city1Name = "Lexington"; // Add the city name of Lexington
-        var city1Lat = 38.03; // Add the latitude of Lexington
-        var city1Lon = -84.5; // Add the longtude of Lexington
+        
+       
+        // note how you an declare multiple variables with one var statement
+        var city1Capital = false,
+            city2Capital = true,
+            city3Capital = false,
+            city1Name = "Lexington",
+            city1Lat = 38.03,
+            city1Lon = -84.5; // Add the longtude of Lexington
+        
         var city1Pop = 310797; //Add the population of Lexington
         var city2Name = "Frankfort"; // Add the name of the city of Frankfort
         var city2Lat = 38.18; // Add the latitude of Frankfort
         var city2Lon = -84.86; // Add the longitude of Frankfort
         var city2Pop = 27453; // Add the population of Frankfort
+        
         var city3Name = "Louisville"; // Add the city name of Louisville
         var city3Lat = 38.25; // Add the latitude of Louisville
         var city3Lon = -85.75; // Add the longitude of Louisville
         var city3Pop = 612780; // Add the population of Louisville
+        
         console.log(city1Name, "is located at", city1Lat, city1Lon); 
         console.log (city2Name, "is located at", city2Lat, city2Lon);
         console.log (city3Name, "is located at", city3Lat, city3Lon);
         console.log (city1Name, "has a population of", city1Pop);
         console.log (city2Name, "has a population of", city2Pop);
         console.log (city3Name, "has a population of", city3Pop);
+        
         var totalPop = city1Pop + city2Pop + city3Pop; // Calculating the Sum
-        var averagePop = (city1Pop + city2Pop + city3Pop)/3; // Calulating the Average
+        var averagePop = totalPop/3; // Calulating the Average
         console.log ("The total population of these three cities is ", totalPop);
         console.log ("The average population of these three cities is ", averagePop);
         var cities = [city1Name, city2Name, city3Name];
         console.log(cities[2]); 
-        // END WRITING CODE FOR LAB 03 HERE
+     
         
         // CITY1 MARKER CODE HERE
         var city1Popup = "<b>"+city1Name+"</b><br>"

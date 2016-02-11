@@ -95,22 +95,33 @@
             [38.0297, -84.4947], [37.73, -84.28], [38.18, -84.86]]; /* add array of coordinate data */
     var cityPops = [308428, 32550, 25527]; /* add array of city populations */
     var cityAreas = [lexArea, richArea, frankArea]; /* add array of city area variables */ 
-    var density = (cityPops/cityAreas);
+    
+    // here you're trying to divide an array by an array. won't work.
+    // var density = (cityPops/cityAreas);
     
     function prepareData(lexArea, richArea, frankArea) { /* function calls all three area parameters */
-        var cities = ["Lexington", "Richmond", "Frankfort"];  
-        var cityCoords = [
-            [38.0297, -84.4947], [37.73, -84.28], [38.18, -84.86]];  
-        var cityPops = [308428, 32550, 25527];  
-        var cityAreas = [lexArea, richArea, frankArea];   
+//        var cities = ["Lexington", "Richmond", "Frankfort"];  
+//        var cityCoords = [
+//            [38.0297, -84.4947], [37.73, -84.28], [38.18, -84.86]];  
+//        var cityPops = [308428, 32550, 25527];  
+//        var cityAreas = [lexArea, richArea, frankArea];  
+        
+        // try calling mapCities here?
     }
         
     function mapCities(cities, cityCoords, cityPops, cityAreas) { /* add function calling all four variables */
-        var cities = ["Lexington", "Richmond", "Frankfort"]; /* add array of names of cities */
-        var cityCoords = [
-            [38.0297, -84.4947], [37.73, -84.28], [38.18, -84.86]]; /* add array of coordinate data */
-        var cityPops = [308428, 32550, 25527]; /* add array of city populations */
-        var cityAreas = [lexArea, richArea, frankArea]; /* add array of city area variables */ 
+//        var cities = ["Lexington", "Richmond", "Frankfort"]; /* add array of names of cities */
+//        var cityCoords = [
+//            [38.0297, -84.4947], [37.73, -84.28], [38.18, -84.86]]; /* add array of coordinate data */
+//        var cityPops = [308428, 32550, 25527]; /* add array of city populations */
+//        var cityAreas = [lexArea, richArea, frankArea]; /* add array of city area variables
+        
+        var density = calcPopDensity(cityPops, cityAreas);
+        
+       // var popup = "<b>"+cities[i]+"</b><br>"+"<b>Coordinates</b>: "+cityCoords[i] +"</b><br>" +"<b>Population</b>: " +cityPops[i] +"</b><br>"+"<b>The Area of </b>" +cities[i] +"</b> is: " +cityAreas[i] +"</b><br>"+"<b>The Population Density of </b>" +cities[i] +"</b> is: "+density[i];
+
+            L.marker(cityCoords).addTo(map)
+               // .bindPopup(popup);
        
     }
       
@@ -119,16 +130,12 @@
         return density
     }  
     
-        for(var i = 0; i < cities.length; i++) {
-            prepareData(lexArea, richArea, frankArea);
-            mapCities (cities, cityCoords, cityPops, cityAreas);
-            calcPopDensity(cityPops, cityAreas);
-                console.log (cities[i], cityCoords[i], cityPops[i], cityAreas[i], density[i]);
-                var popup = "<b>"+cities[i]+"</b><br>"+"<b>Coordinates</b>: "+cityCoords[i] +"</b><br>" +"<b>Population</b>: " +cityPops[i] +"</b><br>"+"<b>The Area of </b>" +cities[i] +"</b> is: " +cityAreas[i] +"</b><br>"+"<b>The Population Density of </b>" +cities[i] +"</b> is: "+density[i];
-
-                L.marker(cityCoords[i]).addTo(map)
-                    .bindPopup(popup);
-            }
+    for(var i = 0; i < cities.length; i++) {
+        
+        //prepareData(lexArea, richArea, frankArea);
+        mapCities(cities[i], cityCoords[i], cityPops[i], cityAreas[i]);
+                
+    }
     
     
    

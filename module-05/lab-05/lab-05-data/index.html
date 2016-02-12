@@ -108,7 +108,7 @@
         
     function mapCities(cities, cityCoords, cityPops, cityAreas) { /* add function calling all four variables */
         for(var i = 0; i < cities.length; i++) {
-            calcPopDensity(cityPops,cityAreas,units);
+            var density = calcPopDensity(cityPops,cityAreas,units);
             console.log (cities[i], cityCoords[i], cityPops[i], cityAreas[i]);
             var popup = "<b>"+cities[i]+"</b><br>"+"<b>Coordinates</b>: "+cityCoords[i] +"</b><br>" +"<b>Population</b>: " +cityPops[i] +"</b><br>"+"<b>The Area of </b>" +cities[i] +"</b> is: " +cityAreas[i] +"</b><br>"+"<b>The Population Density of </b>" +cities[i] +"</b> is: "+(cityPops[i]/cityAreas[i]);
 

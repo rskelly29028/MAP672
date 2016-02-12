@@ -118,9 +118,12 @@
         }
     }
     function calcPopDensity(cityPops, cityAreas, units){
-        if units === "miles"
-        var density =(cityPops/cityAreas);
-        return density
+        if (units === "miles") {
+            var density =(cityPops/cityAreas);
+            return density;
+        } else { 
+            var density = (cityPops/(cityAreas*1.609344));
+        }
     }
         
     for(var i = 0; i < cities.length; i++) {

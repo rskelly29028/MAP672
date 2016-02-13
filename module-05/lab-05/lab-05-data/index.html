@@ -121,10 +121,10 @@
     function calcPopDensity(cityPops, cityAreas, units){
         if  (units = "miles") {
             var density = (cityPops/cityAreas);
-            return density 
-        } else { 
+            return density
+        } else if (units = "km") {
             var density = (cityPops/((cityAreas)*1.609344));
-            return density 
+            return density
         }
     }
         

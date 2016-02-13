@@ -93,12 +93,18 @@
         var cities = ["Cuzco", "Tokyo", "Tromso"]; // Add the names of the three cities to an array
         
         for (var i = 0; i < cities.length; i++) {
-            console.log (cities[i], cityCoords[i], cityPops[i], cityCapital[i]);
-            var citiesPopup = "<b>"+ cities[i] +"</b><br>"+"<b>Coordinates</b>: "+cityCoords[i] +"</b><br>" +"<b>Population</b>: " +cityPops[i] +"</b><br>";
-                if(cityCapital[i] == true) {
-                           citiesPopup += (cities[i])+ " is a capital city."; 
-                } else {   citiesPopup += (cities[i])+ " is not a capital city.";
-                       }
+            // console.log (cities[i], cityCoords[i], cityPops[i], cityCapital[i]);
+            var citiesPopup = "<b>"+ 
+                cities[i] +"</b><br>"+"<b>Coordinates</b>: "+
+                cityCoords[i] +"</b><br>" +"<b>Population</b>: " +
+                cityPops[i] +"</b><br>";
+            
+            if(cityCapital[i] == true) {
+                   citiesPopup += cities[i] + " is a capital city."; 
+            } else {   
+                citiesPopup += cities[i] + " is not a capital city.";
+            }
+            
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(citiesPopup);
         }

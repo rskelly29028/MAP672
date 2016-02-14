@@ -109,9 +109,9 @@
     function mapCities(cities, cityCoords, cityPops, cityAreas) { /* add function calling all four variables */
         var units = prompt('Units for calculating density', 'Enter "miles" or "km"');
         for(var i = 0; i < cities.length; i++) {
-            var density = calcPopDensity(cityPops[i],cityAreas[i],units[i]);
+            var density = calcPopDensity(cityPops[i],cityAreas[i],units);
             console.log (cities[i], cityCoords[i], cityPops[i], cityAreas[i], density);
-            var popup = "<b>"+cities[i]+"</b><br>"+"<b>Coordinates</b>: "+cityCoords[i] +"</b><br>" +"<b>Population</b>: " +cityPops[i] +"</b><br>"+"<b>The Area of </b>" +cities[i] +"</b> is: " +cityAreas[i] +"<b> square </b>"+units +"</b><br>"+"<b>The Population Density of </b>" +cities[i] +"</b> is: "+density +" people per sq " +units;
+            var popup = "<b>"+cities[i]+"</b><br>"+"<b>Coordinates</b>: "+cityCoords[i] +"</b><br>" +"<b>Population</b>: " +cityPops[i] +"</b><br>"+"<b>The Area of </b>" +cities[i] +"</b> is: " +cityAreas[i] +"<b> square </b>"+units +"</b><br>"+"<b>The Population Density of </b>" +cities[i] +"</b> is: "+density.toLocaleString() +" people per sq " +units;
 
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(popup);
@@ -119,14 +119,16 @@
         }
     }
     function calcPopDensity(cityPops, cityAreas, units){
-        if  (units = "miles") {
+            if  (units == "miles") {
             var density = (cityPops/cityAreas);
             return density
-        } else if (units = "km") {
+        } else if (units == "km") {
             var density = (cityPops/((cityAreas)*1.609344));
             return density
+    
         }
     }
+    
         
     
          

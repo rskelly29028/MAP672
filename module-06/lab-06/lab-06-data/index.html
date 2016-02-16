@@ -53,14 +53,14 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>The Golden State</h1>
+        <h2>Major League Baseball Teams of Southern California</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
+        <p>Map authored by Ryan Kelly</p>
         <p>Additional information about the data and map goes here.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
         </p>
@@ -69,7 +69,7 @@
     <script>
 
         var map = L.map('map', {
-            center: [38.96,-85.36],
+            center: [33.88,-117.5],
             zoom: 8,
         });
        
@@ -82,18 +82,48 @@
         // Begin writing/modifying code for Lab 06 here
         
         var cities = [
-             {
-                 name: "Louisville",
+            {
+                 name: "Los Angeles",
                  properties: {
-                     coordinates: [38.25, -85.7667],
-                     population: 756832,
-                     state: "KY"
+                     coordinates: [34.05, -118.25],
+                     population: 12150996,
+                     team: "Dodgers",
+                     stadium: "Dodger Stadium"
+                }
+             },
+            {
+                 name: "Anaheim",
+                 properties: {
+                     coordinates: [33.83, -117.90],
+                     population: 345012,
+                     team: "Angels",
+                     stadium: "Angels Stadium"
                  }
-             }    
+             },
+           {
+                 name: "San Diego",
+                 properties: {
+                     coordinates: [32.70, -117.15],
+                     population: 1381069,
+                     team: "Padres",
+                     stadium: "PETCO Park"
+                 }
+             }
         ];
-            
+                     
         
+        
+        for(var i = 0; i < cities.length; i++) {
+            console.log(cities[i], cities[i].properties.coordinates, cities[i].properties.population, cities[i].properties.team, cities[i].properties.stadium); 
           
+            var popup = "<b>"+cities[i].name+"</b><br>"+"<b>Coordinates: </b> "
+            +cities[i].properties.coordinates +"</b><br>" +"<b>Population: </b> "
+            +cities[i].properties.population +"</b><br>" +"<b>MLB Team: </b> " +cities[i].properties.team +"</b><br>"+"<b>Stadium: </b>" +cities[i].properties.stadium; 
+            
+            L.marker(cities[i].properties.coordinates).addTo(map)
+                .bindPopup(popup);
+                
+        }
     </script>
     
 </body>

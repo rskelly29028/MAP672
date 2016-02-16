@@ -44,8 +44,14 @@
             font-size: 1em;
             color: #001323;
         }
-        .kentucky-blue {
-            color: #165bb6;
+        .dodgers-blue {
+            color: blue;
+        }
+        .angels-red {
+            color: red;
+        }
+        .padres-navy {
+            color: navy;
         }
         
     </style>
@@ -62,7 +68,7 @@
     <footer>
         <p>Map authored by Ryan Kelly</p>
         <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>There are three baseball teams in southern California.  The Los Angeles Dodgers, representing the National League, arrived from Brooklyn in 1958 and are the longest tenured team on the West Coast.  They came in tandem with their Bay Area rivals, the San Francisco Giants, who also left New York in 1958 to join the Dodgers on the West Coast.  The Anaheim Angels were established in 1962.  They are the lone American League franchise in southern California.  The San Diego Padres became the second National League team in southern California upon their establishment in 1969.  The Dodgers have won the World Series five times -- 1959, 1963, 1965, 1981 and 1988 -- since coming to southern California.  The Angels won their lone World Series title in 2002.  The Padres are still seeking their first World Series crown.
         </p>
     </footer>
 
@@ -80,6 +86,8 @@
         map.addLayer(tiles);
         
         // Begin writing/modifying code for Lab 06 here
+        
+        
         
         var cities = [
             {
@@ -109,21 +117,43 @@
                      stadium: "PETCO Park"
                  }
              }
-        ];
-                     
+        ];  // define the cities data within an object and store all within an array
         
+        var pop = Number
+        var team = String
         
-        for(var i = 0; i < cities.length; i++) {
-            console.log(cities[i], cities[i].properties.coordinates, cities[i].properties.population, cities[i].properties.team, cities[i].properties.stadium); 
-          
-            var popup = "<b>"+cities[i].name+"</b><br>"+"<b>Coordinates: </b> "
-            +cities[i].properties.coordinates +"</b><br>" +"<b>Population: </b> "
-            +cities[i].properties.population +"</b><br>" +"<b>MLB Team: </b> " +cities[i].properties.team +"</b><br>"+"<b>Stadium: </b>" +cities[i].properties.stadium; 
+        for (var i = 0; i < cities.length; i++) {
+            var props = cities[i].properties; 
+            console.log(cities[i],props); // loop through each city and its properties
+            var popup = buildPopup(name,pop,team);
             
-            L.marker(cities[i].properties.coordinates).addTo(map)
+            L.marker(props.coordinates).addTo(map)
                 .bindPopup(popup);
                 
         }
+        
+        function buildPopup(name,pop,team){
+            if(team == "Dodgers") {
+                var colorClass = "dodgers-blue";
+                return "<div class='"+colorClass+"'><b>"+name[i]+"</b><br>"+
+                "<b>Population</b>: "+pop.toLocaleString()+"<div>";
+                
+           } 
+            else if (team == "Angels"){
+                var colorClass = "angels-red";
+                return "<div class='"+colorClass+"'><b>"+name+"</b><br>"+
+                "<b>Population</b>: "+pop.toLocaleString()+"<div>";
+                
+            }
+            else if (team == "Padres") {
+                var colorClass = "padres-navy";
+                return "<div class='"+colorClass+"'><b>"+name+"</b><br>"+
+                "<b>Population</b>: "+pop.toLocaleString()+"<div>";
+                
+            }
+        }
+        
+        
     </script>
     
 </body>

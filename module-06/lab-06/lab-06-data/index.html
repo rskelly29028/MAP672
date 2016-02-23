@@ -66,9 +66,9 @@
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by Ryan Kelly on February 19, 2016</p>
+        <p>Map authored by Ryan Kelly on February 23, 2016</p>
         <p>Coordinate data courtesy of Google Earth</p>
-        <p>There are three baseball teams in southern California.  The Los Angeles Dodgers, representing the National League, arrived from Brooklyn in 1958 and are the longest tenured team on the West Coast.  They came in tandem with their Bay Area rivals, the San Francisco Giants, who also left New York in 1958 to join the Dodgers on the West Coast.  The Anaheim Angels were established in 1962.  They are the lone American League franchise in southern California.  The San Diego Padres became the second National League team in southern California upon their establishment in 1969.  The Dodgers have won the World Series five times -- 1959, 1963, 1965, 1981 and 1988 -- since coming to southern California.  The Angels won their lone World Series title in 2002.  The Padres are still seeking their first World Series crown.
+        <p>There are three baseball teams in southern California.  The Los Angeles Dodgers, representing the National League, arrived from Brooklyn in 1958 and along with the Giants are the longest tenured team on the West Coast.  They came in tandem with their Bay Area rivals, the San Francisco Giants, who also left New York in 1958 to join the Dodgers on the West Coast.  The Anaheim Angels were established in 1962.  They are the lone American League franchise in southern California.  The San Diego Padres became the second National League team in southern California upon their establishment in 1969.  The Dodgers have won the World Series five times -- 1959, 1963, 1965, 1981 and 1988 -- since coming to southern California.  The Angels won their lone World Series title in 2002.  The Padres are still seeking their first World Series crown.
         </p>
     </footer>
 
@@ -86,10 +86,6 @@
         map.addLayer(tiles);
         
         // Begin writing/modifying code for Lab 06 here
-        
-        var pop = Number
-        var team = String
-       
         
         var cities = [
             {
@@ -124,38 +120,38 @@
         for (var i = 0; i < cities.length; i++) {
             var props = cities[i].properties; 
             console.log(cities[i],props); // loop through each city and its properties
-            var popup = buildPopup(name,pop,team);
+            var popup = buildPopup(popup,name);
             
             L.marker(props.coordinates).addTo(map)
-                .bindPopup(popup);
+                .bindPopup(popup);  // create a Leaflet marker with the city's coordinates and bind the popup 
                 
         }
-        
+    
         function buildPopup(name,pop,team){
             var pop = (props.population)
             var team = (props.team)
-            var stadium = (props.stadium) 
-            var link = (props.link)
+            var stadium = (props.stadium)
             if(team == "Dodgers") {
-                var colorClass = "dodgers-blue";
-                var name = cities[i].name
+                var colorClass = "dodgers-blue";  // assign a CSS class name to a variable used to color the text
+                var name = cities[i].name  // create a variable to store the popup content for each city
                 var pop = props.population
                 return "<div class='"+colorClass+"'><b>City: "+name+"</b><br>"+
-                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team.toLocaleString()+"<div>"+"<b>Stadium</b>: "+stadium.toLocaleString();   
+                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team.toLocaleString()+"<div>"+"<b>Stadium</b>: "+stadium.toLocaleString();  // return a string concatenating the name, population and other data of each city within HTML  
+                
            } 
             else if (team == "Angels"){
-                var colorClass = "angels-red";
-                var name = cities[i].name
+                var colorClass = "angels-red"; // assign a CSS class name to a variable used to color the text
+                var name = cities[i].name  // create a variable to store the popup content for each city
                 var pop = props.population
                 return "<div class='"+colorClass+"'><b>City: "+name+"</b><br>"+
-                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team.toLocaleString()+"<div>"+"<b>Stadium</b>: "+stadium.toLocaleString();     
+                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team.toLocaleString()+"<div>"+"<b>Stadium</b>: "+stadium.toLocaleString();  // return a string concatenating the name, population and other data of each city within HTML     
             }
             else if (team == "Padres") {
-                var colorClass = "padres-navy";
-                var name = cities[i].name
+                var colorClass = "padres-navy";  // assign a CSS class name to a variable used to color the text
+                var name = cities[i].name  // create a variable to store the popup content for each city
                 var pop = props.population
                 return "<div class='"+colorClass+"'><b>City: "+name+"</b><br>"+
-                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team.toLocaleString()+"<div>"+"<b>Stadium</b>: "+stadium.toLocaleString();             
+                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team.toLocaleString()+"<div>"+"<b>Stadium</b>: "+stadium.toLocaleString(); // return a string concatenating the name, population and other data of each city within HTML            
             }
         }
         

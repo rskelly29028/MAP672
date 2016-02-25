@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Lesson 07 Template</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Module 07 Map Lesson</h1>
+        <h2>MAP 672 Module 07</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by Ryan Kelly</p>
+        <p>MAP 672 Lesson 07 Code</p>
+        <p>Comment out each line of code to describe what the code is performing
+        </p>
+    </footer>
+
+    <script>
+        var map = L.map('map'); //Loads the Leaflet map template
+        map.setView([38.0489,-96.5025], 4); // Places the center at the coordinates listed, zoomed to 4
+        
+    var center = map.getCenter();
+        console.log(center.lat, center.lng); // outputs the specific latitude and the longitude values
+    var zoom = map.getZoom();
+        console.log(zoom); // returns a Number
+    var bounds = map.getBounds();
+        console.log(bounds); // returns a LatLngBounds object
+        
+    var tiles = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });    
+        map.addLayer(tiles);
+        
+    var iguanaRestaurants = L.layerGroup(); // creates a layer called Iguana Restaurants
+    var redIguanaOptions = {
+        color: 'red',
+        fillColor: 'red'
+    }; // creates options dealing with the color of the layer
+
+    var blueIguanaOptions = {
+        color: '#03f',
+        fillColor: '#03f'
+    };
+
+    var redIguana = L.circle([40.7718,-111.9124], 400, redIguanaOptions);
+        redIguana.color = 'red'; // creates a red circle of 400 meter radius at the coordinates listed in the code
+        redIguana.addTo(iguanaRestaurants);
+    var blueIguana = L.circle([40.7657, -111.8930], 300, blueIguanaOptions);
+        blueIguana.color = 'blue'; // creates a blue circle of 300 meter radius at the coordinates listed in the code
+        blueIguana.addTo(iguanaRestaurants);
+        iguanaRestaurants.addTo(map);
+
+    iguanaRestaurants.eachLayer(function(layer) {
+    layer.on('mouseover', function(e) {
+        e.target.setStyle({
+            color: 'yellow',
+            fillColor: 'yellow'
+        }); 
+    });  // creates a dynamic event where the color of the circle changes to yellow when the cursor is placed atop it
+        
+    layer.on('mouseout', function(e) {
+        if(e.target.color == 'red') {
+            e.target.setStyle(redIguanaOptions);
+        } else if (e.target.color == 'blue') {
+                e.target.setStyle(blueIguanaOptions);      
+        }
+    });
+}); // creates a dynamic event where once the cursor is removed from the circle it will revert back to its      
+    // original set of options.  The if... else statement ensures whether the cursor is on the blue or red circle // it will revert back to its respective set of options
+   
+
+    </script>
+    
+</body>
+
+</html>

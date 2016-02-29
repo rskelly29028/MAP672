@@ -46,7 +46,6 @@
         }
         /* Additional style rules go here! */
         
-
     </style>
 </head>
 
@@ -60,13 +59,12 @@
 
     <footer>
         <p>Map authored by Ryan Kelly, March 2, 2016</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>MAP 672 Lab #7 -- Calculating Distance to the Red Iguana.</p>
+        <p>The following map will, upon the user clicking on the document, proceed to recenter the map at the point of the mouse click, provide the user with the latitude/longitude coordinates, the distance (in meters) between the new center and the Red Iguana Restaurant, generate the coordinates of the newly recalibrated map, and calculate the distance (in meters) between the southwest bounding coordinates and the Red Iguana.
         </p>
     </footer>
 
     <script>
-
     var map = L.map('map', {
         center: [40.7718,-111.9124],
         zoom:  10,
@@ -91,10 +89,11 @@
             var distance = newlatlng.distanceTo(redIguana);
             console.log("The distance in meters between the new center of the map and the Red Iguana is", distance, "meters"); // outputs distance between Red Iguana and new map center in meters
             
-            var bounds = map.getBounds();
-           
-            var southWest = L.latLng(40.4908, -112.6538);
-            console.log("The southwest bounding coordinates for the new scale level are", southWest); // returns a LatLngBounds object
+            var southWest = map.getBounds().getSouthWest()
+        
+            console.log(southWest); // returns a LatLngBounds object
+
+            console.log("The southwest bounding coordinates for the new scale level are", southWest);
             
             
             var distanceRedIguana = southWest.distanceTo(redIguana);
@@ -107,5 +106,3 @@
     </script>
     
 </body>
-
-</html>

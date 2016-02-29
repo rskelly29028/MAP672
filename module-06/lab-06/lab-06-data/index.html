@@ -120,39 +120,28 @@
         for (var i = 0; i < cities.length; i++) {
             var props = cities[i].properties; 
             console.log(cities[i],props); // loop through each city and its properties
-            var popup = buildPopup(popup,name);
+            
+            var popup = buildPopup(cities[i].name,props.population, props.team, props.stadium);
             
             L.marker(props.coordinates).addTo(map)
                 .bindPopup(popup);  // create a Leaflet marker with the city's coordinates and bind the popup 
                 
         }
     
-        function buildPopup(name,pop,team){
-            var pop = (props.population)
-            var team = (props.team)
-            var stadium = (props.stadium)
+        function buildPopup(name,pop,team,stadium){
+
             if(team == "Dodgers") {
-                var colorClass = "dodgers-blue";  // assign a CSS class name to a variable used to color the text
-                var name = cities[i].name  // create a variable to store the popup content for each city
-                var pop = props.population
-                return "<div class='"+colorClass+"'><b>City: "+name+"</b><br>"+
-                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team.toLocaleString()+"<div>"+"<b>Stadium</b>: "+stadium.toLocaleString();  // return a string concatenating the name, population and other data of each city within HTML  
+                var colorClass = "dodgers-blue";  // assign a CSS class name to a variable
                 
            } 
             else if (team == "Angels"){
-                var colorClass = "angels-red"; // assign a CSS class name to a variable used to color the text
-                var name = cities[i].name  // create a variable to store the popup content for each city
-                var pop = props.population
-                return "<div class='"+colorClass+"'><b>City: "+name+"</b><br>"+
-                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team.toLocaleString()+"<div>"+"<b>Stadium</b>: "+stadium.toLocaleString();  // return a string concatenating the name, population and other data of each city within HTML     
+                var colorClass = "angels-red"; // assign a CSS class name to a variable used to color the text    
             }
             else if (team == "Padres") {
-                var colorClass = "padres-navy";  // assign a CSS class name to a variable used to color the text
-                var name = cities[i].name  // create a variable to store the popup content for each city
-                var pop = props.population
-                return "<div class='"+colorClass+"'><b>City: "+name+"</b><br>"+
-                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team.toLocaleString()+"<div>"+"<b>Stadium</b>: "+stadium.toLocaleString(); // return a string concatenating the name, population and other data of each city within HTML            
+                var colorClass = "padres-navy";  // assign a CSS class name to a variable used to color the text       
             }
+            return "<div class='"+colorClass+"'><b>City: "+name+"</b><br>"+
+                "<b>Population</b>: "+pop.toLocaleString()+"<div>"+"<b>Team</b>: "+team+"<div>"+"<b>Stadium</b>: "+stadium;
         }
         
         

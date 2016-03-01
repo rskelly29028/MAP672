@@ -58,7 +58,7 @@
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by Ryan Kelly on Tuesday, March 2, 2016</p>
+        <p>Map authored by Ryan Kelly on Tuesday, March 1, 2016</p>
         <p>MAP 672 Lab #7 -- Calculating Distance to the Red Iguana.</p>
         <p>The following map will, upon the user clicking on the document, proceed to recenter the map at the point of the mouse click, provide the user with the latitude/longitude coordinates, the distance (in meters) between the new center and the Red Iguana Restaurant, generate the coordinates of the newly recalibrated map, and calculate the distance (in meters) between the southwest bounding coordinates and the Red Iguana.
         </p>
@@ -91,18 +91,13 @@
             
             var southWest = map.getBounds().getSouthWest()
         
-            console.log(southWest); // returns a LatLngBounds object
-
             console.log("The southwest bounding coordinates for the new scale level are", southWest);
-            
             
             var distanceRedIguana = southWest.distanceTo(redIguana);
             console.log("The distance in meters between the southwest corner of the map and the Red Iguana is", distanceRedIguana, "meters"); // outputs distance between Red Iguana and the southwest corner in meters
         
     });
-        
-        
-                  
+                        
     </script>
     
 </body>

@@ -49,15 +49,15 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Wind Turbines Across the USA</h1>
+        <h2>Sustainable Energy for the Future</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
+        <p>Map authored by Ryan Kelly on March 11, 2016</p>
+        <p>Symbols are graduated by megawatts produced</p>
     </footer>
 
     <script src="power-plants.js"></script>
@@ -76,19 +76,51 @@
       
       tiles.addTo(map);
       
+      plants.features.sort(function(a, b) {
+            return b.properties.capacity_mw - a.properties.capacity_mw;
+      });
+        
       L.geoJson(plants, {
           pointToLayer: function(feature,latlng) {
               return L.circleMarker(latlng, {
-                 color: 'orange',
+                 color: 'green',
                  weight: 1,
-                 fillColor: 'yellow',
-                 fillOpacity: 1,
-                 radius: 2
+                 fillColor: 'white',
+                 fillOpacity: 5,
+                 radius: getRadius(feature.properties.capacity_mw)
               });   
-          }
+          },
+          filter: function(feature, layer) {
+                if(feature.properties.fuel_source.Wind){
+                return feature;   
+        }
+    }
+          
+  
+        
       }).addTo(map);
 
-                  
+        console.log(plants);
+
+L.geoJson(plants, {
+            onEachFeature : function(feature,layer) {
+                layer.on('mouseover', function() {
+                    layer.setStyle({
+                        fillColor: 'red'
+            });
+        });
+                layer.on('mouseout', function() {
+                    layer.setStyle({
+                        fillColor: 'yellow'
+            });
+        });
+} 
+})     
+        
+    function getRadius(area) {
+        var radius = Math.sqrt(area/Math.PI);
+        return radius * .9;  
+}         
     </script>
     
 </body>

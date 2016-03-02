@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Lesson 08 Template</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Lesson #8</h1>
+        <h2>Learning About Leaflet (and Estonia)</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by Ryan Kelly</p>
+        <p>Lesson #8 Exercise</p>
+    </footer>
+
+    <script>
+
+var map = L.map('map', {
+   center: [58.73, 25.67], // centered in Estonia
+   zoom: 7
+});
+
+var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+});  
+tiles.addTo(map);
+        
+var places = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "Tallinn",
+        "size": 159
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.7357177734375,
+          59.43390314475794
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "Haapsalu",
+        "size": 11
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.543701171875,
+          58.945758027716465
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "Parnu",
+        "size": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.510498046875,
+          58.38011855064708
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "Tartu",
+        "size": 39
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.728363037109375,
+          58.37147760096145
+        ]
+      }
+    }
+  ]
+};
+
+var placesLeaflet = L.geoJson(places, {
+    pointToLayer : function(feature, latlng) {
+        return L.circle(latlng, feature.properties.size * 100);
+    }
+}).addTo(map);
+                  
+    </script>
+    
+</body>
+
+</html>

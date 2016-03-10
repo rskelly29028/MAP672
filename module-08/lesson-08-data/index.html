@@ -63,13 +63,7 @@
 
     
 <script>
-    
-
-        
-    
-    // custom JavaScript here
-
-    
+  
 var map = L.map('map', {
    center: [36, -94], // centered in the United States on the OK/KS border
    zoom: 4
@@ -91,18 +85,16 @@ L.geoJson(plants, {
             fillColor: 'gray',
             fillOpacity: .9,
             radius: 2
-        });   
+        });  // creates a circle from an x,y lat/long point with specific color specs 
     },
     filter: function(feature, layer) {
         if(feature.properties.fuel_source.Wind && feature.properties.capacity_mw > 100 && feature.properties.code >57000){
-            return feature;   
+            return feature; // returns wind turbines generating more than 100 mw and with code ID greater than 57000  
         }
     }
 
 }).addTo(map);
    
-
-
                   
     </script>
     

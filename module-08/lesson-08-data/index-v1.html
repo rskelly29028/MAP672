@@ -108,7 +108,7 @@ var places = {
         "coordinates": [
           23.543701171875,
           58.945758027716465
-        ]
+        ] 
       }
     },
     {
@@ -145,13 +145,13 @@ var places = {
         ]
       }
     }
-  ]
+  ]  // an array of coordinates within Estonia
 };
 
 var placesLeaflet = L.geoJson(places, {
     pointToLayer : function(feature, latlng) {
         return L.circle(latlng, feature.properties.size * 100);
-    }
+    } // creating circles of x,y point data within Estonia
 }).addTo(map);
                   
     </script>

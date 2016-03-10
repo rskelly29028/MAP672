@@ -56,7 +56,7 @@
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by Ryan Kelly on March 11, 2016</p>
+        <p>Map authored by Ryan Kelly on March 9, 2016</p>
         <p>Symbols are graduated by megawatts produced</p>
     </footer>
 
@@ -79,7 +79,7 @@
       plants.features.sort(function(a, b) {
             return b.properties.capacity_mw - a.properties.capacity_mw;
       });
-        
+      
       L.geoJson(plants, {
           pointToLayer: function(feature,latlng) {
               return L.circleMarker(latlng, {
@@ -88,39 +88,46 @@
                  fillColor: 'white',
                  fillOpacity: 5,
                  radius: getRadius(feature.properties.capacity_mw)
-              });   
+              });   // creates circles from points at a specific lat/long coordinate
           },
-          filter: function(feature, layer) {
+         
+      filter: function(feature, layer) {
                 if(feature.properties.fuel_source.Wind){
-                return feature;   
+                return feature; // filters for wind turbines only  
         }
-    }
+          },
           
-  
+        onEachFeature : function(feature,layer){
+            layer.on('mouseover', function(){
+                layer.setStyle({
+                    color: 'blue',
+                    weight: 5,
+                    fillColor: 'yellow',
+                    fillOpacity: 1  
+                }); // changes to blue/yellow with mouseover
+            });
+            layer.on('mouseout',function(){
+                layer.setStyle({
+                    color: 'green',
+                    weight: 1,
+                    fillColor: 'white',
+                    fillOpacity: 5
+                }); //reverts back to default color with mouseout
+            });
+            layer.on('click',function(){
+                layer.bindPopup("<b>Plant Name: "+feature.properties.plant_name+"</b><br>"+"Installed Capacity: "+feature.properties.capacity_mw+" Megawatts").openPopup(plants.properties);
+                });  // creates a popup of data on a mouseclick
+            }
+        }).addTo(map);
         
-      }).addTo(map);
-
         console.log(plants);
-
-L.geoJson(plants, {
-            onEachFeature : function(feature,layer) {
-                layer.on('mouseover', function() {
-                    layer.setStyle({
-                        fillColor: 'red'
-            });
-        });
-                layer.on('mouseout', function() {
-                    layer.setStyle({
-                        fillColor: 'yellow'
-            });
-        });
-} 
-})     
-        
+          
     function getRadius(area) {
         var radius = Math.sqrt(area/Math.PI);
-        return radius * .9;  
-}         
+        return radius * 1.25;  
+}    
+        
+    
     </script>
     
 </body>

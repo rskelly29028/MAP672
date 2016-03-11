@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Lab 09 Module</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Power Plants of the USA</h1>
+        <h2>Fuel Sources Used to Generate Electricity</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by Ryan Kelly on March 12, 2016</p>
+        <p>Data attributed to TBA</p>
+    </footer>
+
+    <script src="power-plants.js"></script>
+    <script>
+
+       var map = L.map('map', {
+          center: [36,-94],
+          zoom: 4,
+      });
+      
+      var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+          subdomains: 'abcd',
+          maxZoom: 19
+      });  
+      
+      tiles.addTo(map);
+       
+      console.log(plants);
+        
+   var plants = L.geoJson(plants, {
+        pointToLayer: function(feature,latlng) {
+            return L.circleMarker(latlng);
+        },
+       
+       filter: function(feature, layer) {
+                if(feature.properties.fuel_source.Coal || feature.properties.fuel_source.Hydro || feature.properties.fuel_source.Solar){
+                return feature; // filters for coal, water and solar fuel sources 
+        }
+          },
+    
+       onEachFeature: function(feature,layer) {
+            if(feature.properties.fuel_source.Coal) {
+                layer.setStyle({
+                    color: 'white',
+                    weight: .5,
+                    fillColor: 'gray',
+                    fillOpacity: .6,
+                    radius: getRadius(feature.properties.fuel_source.Coal)
+                });
+                layer.on('click',function(){
+                    layer.bindPopup("<b>Plant Name: "+feature.properties.plant_name+"</b><br>"+"<b>Fuel Source: Coal"+"</b><br>"+"Installed Capacity: "+feature.properties.capacity_mw+" Megawatts").openPopup(plants.properties);
+                });
+                
+            } else if(feature.properties.fuel_source.Hydro) {
+                layer.setStyle({
+                    color: 'white',
+                    weight: .5,
+                    fillColor: 'blue',
+                    fillOpacity: .7,
+                    radius: getRadius(feature.properties.fuel_source.Hydro)
+                });
+                layer.on('click',function(){
+                    layer.bindPopup("<b>Plant Name: "+feature.properties.plant_name+"</b><br>"+"<b>Fuel Source: Water"+"</b><br>"+"Installed Capacity: "+feature.properties.capacity_mw+" Megawatts").openPopup(plants.properties);
+                });
+            } else if(feature.properties.fuel_source.Solar) {
+                layer.setStyle({
+                    color: 'white',
+                    weight: .5,
+                    fillColor: 'yellow',
+                    fillOpacity: .9,
+                    radius: getRadius(feature.properties.fuel_source.Solar)
+                });      
+                layer.on('click',function(){
+                    layer.bindPopup("<b>Plant Name: "+feature.properties.plant_name+"</b><br>"+"<b>Fuel Source: Solar"+"</b><br>"+"Installed Capacity: "+feature.properties.capacity_mw+" Megawatts").openPopup(plants.properties);
+                });
+            }
+    }
+       
+     }).addTo(map); 
+        
+            var name = "Ryan";
+            var source = "Big Energy"; 
+        map.on('click', function(e) {
+            var newlatlng = e.latlng;
+            console.log(newlatlng);
+            map.setView(newlatlng, 6);
+            plants.eachLayer(function(layer,properties) {
+            var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+            
+           
+        if(distance > 500) {
+            layer.setStyle({
+                stroke: false,
+                fill: false
+            });  
+        } else {
+            layer.setStyle({
+                stroke: true,
+                fill: true,     
+           });
+        }
+        
+            layer.on('click',function (){
+                layer.bindPopup("<b>Plant Name: "+name.toLocaleString()+"<br>"+"<b>Fuel Source: "+source.toLocaleString()+"<br>"+"The facility is <b>"+distance.toLocaleString()+ " km</b><br> from the click point").openPopup(plants.properties);
+                    });
+                })
+            
+        });
+            
+        var commonStyles = {
+        weight: 1,
+        stroke: 1,
+        fillOpacity: .8
+}
+
+        var sourcesLayers1 = {
+            "<b style='color:#1f78b4;text-shadow: 0px 0px 1px #333;'>Hydro</b><br>": plants};
+        var sourcesLayers2 = {
+            "<b style='color:##808080;text-shadow: 0px 0px 1px #333;'>Coal</b>": plants};
+        var sourcesLayers3 = {
+            "<b style='color:#ffff19; text-shadow: 1px 1px 1px #333;'>Solar</b>": plants
+            };
+
+        L.control.layers(null, sourcesLayers1,{ collapsed:false }).addTo(map);
+        L.control.layers(null, sourcesLayers2,{ collapsed:false }).addTo(map);
+        L.control.layers(null, sourcesLayers3,{ collapsed:false }).addTo(map);
+          
+        function getRadius(val) {
+            var radius = Math.sqrt(val/Math.PI);
+            return radius * 0.9;   
+        }
+ 
+      
+    </script>
+    
+</body>
+
+</html>
